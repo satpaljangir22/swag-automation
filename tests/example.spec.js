@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { testUsers } from "../test-data/test-users";
 
 test("find most expensive product", async ({ page }) => {
   await page.goto("https://www.saucedemo.com/", {
@@ -47,7 +48,10 @@ test("find most expensive product", async ({ page }) => {
   await expect(
     page.getByRole("button", { name: "Checkout", exact: true })
   ).toBeEnabled();
-  await page.screenshot({ path: "your-cart.png", fullPage: true });
+  await page.screenshot({
+    path: "./test-results/screenshots/valid-order/your-cart.png",
+    fullPage: true,
+  });
 
   await page.getByRole("button", { name: "Checkout", exact: true }).click();
   await expect(page).toHaveURL(
@@ -61,7 +65,10 @@ test("find most expensive product", async ({ page }) => {
   await page.getByPlaceholder("First Name").fill("Satpal");
   await page.getByPlaceholder("Last Name").fill("Jangir");
   await page.getByPlaceholder("Zip/Postal Code").fill("332301");
-  await page.screenshot({ path: "checkout-information.png", fullPage: true });
+  await page.screenshot({
+    path: "./test-results/screenshots/valid-order/checkout-information.png",
+    fullPage: true,
+  });
 
   await page.getByRole("button", { name: "Continue", exact: true }).click();
   await expect(page).toHaveURL(
@@ -70,23 +77,23 @@ test("find most expensive product", async ({ page }) => {
   await expect(
     page.getByRole("button", { name: "Finish", exact: true })
   ).toBeEnabled();
-  await page.screenshot({ path: "checkout-overview.png", fullPage: true });
+  await page.screenshot({
+    path: "./test-results/screenshots/valid-order/checkout-overview.png",
+    fullPage: true,
+  });
 
   await page.getByRole("button", { name: "Finish", exact: true }).click();
   await expect(page.getByText("Thank you for your order!")).toBeVisible();
-  await page.screenshot({ path: "checkout-complete.png", fullPage: true });
+  await page.screenshot({
+    path: "./test-results/screenshots/valid-order/checkout-complete.png",
+    fullPage: true,
+  });
   await expect(
     page.getByRole("button", { name: "Back Home", exact: true })
   ).toBeEnabled();
 });
 
-[
-  { userName: "locked_out_user", password: "secret_sauce" },
-  { userName: "problem_user", password: "secret_sauce" },
-  { userName: "performance_glitch_user", password: "secret_sauce" },
-  { userName: "error_user", password: "secret_sauce" },
-  { userName: "visual_user", password: "secret_sauce" },
-].forEach(({ userName, password }) => {
+testUsers.forEach(({ userName, password }) => {
   test(`testing with ${userName}`, async ({ page }) => {
     await page.goto("https://www.saucedemo.com/", {
       waitUntil: "domcontentloaded",
@@ -95,6 +102,9 @@ test("find most expensive product", async ({ page }) => {
     await page.getByPlaceholder("Password").fill(password);
     await page.getByRole("button", { name: "Login", exact: true }).click();
     await page.waitForLoadState("domcontentloaded");
-    await page.screenshot({ path: `users/${userName}.png`, fullPage: true });
+    await page.screenshot({
+      path: `./test-results/screenshots/valid-users/${userName}.png`,
+      fullPage: true,
+    });
   });
 });
