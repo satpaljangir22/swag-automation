@@ -1,7 +1,11 @@
-export const testUsers = [
-  { userName: "locked_out_user", password: "secret_sauce" },
-  { userName: "problem_user", password: "secret_sauce" },
-  { userName: "performance_glitch_user", password: "secret_sauce" },
-  { userName: "error_user", password: "secret_sauce" },
-  { userName: "visual_user", password: "secret_sauce" },
-];
+export const users = {
+  standardUser: { username: "standard_user", password: "secret_sauce" },
+  lockedUser: { username: "locked_out_user", password: "secret_sauce" },
+  problemUser: { username: "problem_user", password: "secret_sauce" },
+  performanceGlitchUser: {
+    username: "performance_glitch_user",
+    password: "secret_sauce",
+  },
+  errorUser: { username: "error_user", password: "secret_sauce" },
+  visualUser: { username: "visual_user", password: "secret_sauce" },
+};

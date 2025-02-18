@@ -6,6 +6,7 @@ export default defineConfig({
   fullyParallel: true,
   reporter: "html",
   use: {
+    baseURL: "https://www.saucedemo.com/",
     testIdAttribute: "data-test",
   },
 
